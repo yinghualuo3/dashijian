@@ -1,4 +1,4 @@
- $(function () {
+$(function () {
     getUserInfo();
 
     // 为退出按钮添加事件
@@ -67,3 +67,4 @@ function getUserInfo() {
         }
     }
 }
+
