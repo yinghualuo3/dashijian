@@ -14,13 +14,13 @@ $.ajaxPrefilter(function (opt) {
 
     // 3.统一处理服务端返回的未登录错误
     opt.complete = function (res) {
-        if (res.responseJSON.status === 1 && res.responseJSON.message==="身份认证失败！") {
+        if (res.responseJSON.status === 1 && res.responseJSON.message === "身份认证失败！") {
             // a.提示用户没有权限
             alert('对不起，您的登录已失效 (＞人＜；)')
             // b.删除localStorage中可能存在的伪造的token
             localStorage.removeItem('token');
             // c.强制跳转到登录页面
-            location.href = './login.html';
+            window.top.location.href = './login.html';
         }
     }
 })
