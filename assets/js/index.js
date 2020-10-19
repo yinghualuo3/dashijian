@@ -50,10 +50,13 @@ function getUserInfo() {
         $('#welcome').html('欢迎' + uName);
         // b.显示用户头像
         // b1.图片头像
+        console.log(userinfo);
+        console.log(userinfo.user_pic);
         if (userinfo.user_pic != null) {
             // b1.0 隐藏文字头像
             $('.userinfo .text-avatar').hide()
             // b1.1 设置头像路径 并显示图片头像
+            console.log(userinfo.user_pic);
             $('.userinfo img').attr('src', userinfo.user_pic).show();
         }
         // b2.文本头像

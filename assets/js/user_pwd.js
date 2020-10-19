@@ -1,6 +1,22 @@
 $(function () {
+    // a.添加layui的自定义校验规则
+    /* 校验规则的方法
+        调用时机 onsubmit
+        返回值：
+             */
+    layui.form.verify({
+        repwd: function (confirmpwd) {
+            // a.获取新密码 
+            var newpwdStr = $('[name=newPwd]').val().trim();
+            // b.比较两次密码是否一致
+            if (newpwdStr != confirmpwd) {
+                return '两次密码输入不一致！';
+            }
+        }
+    });
+
     // 1.为提交按钮添加点击事件
-    $('#btnSubmit').on('click', function () {
+    $('#btnSubmit').on('submit', function () {
         changePwd()
     });
 })
@@ -22,7 +38,7 @@ function changePwd() {
             } else {
                 layui.layer.msg(res.message, function () {
                     localStorage.removeItem('token');
-                    window.parent.location.href='../login.html'
+                    window.parent.location.href = '../login.html'
                 })
             }
         }
