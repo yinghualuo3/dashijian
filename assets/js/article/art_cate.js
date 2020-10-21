@@ -55,9 +55,6 @@ $(function () {
 
 
 
-
-
-
 // 1.请求分类列表 数据 并通过模板引擎渲染到页面
 function getArtCateList() {
     $.ajax({

@@ -33,13 +33,24 @@ function changePwd() {
         data: strData,
         success: function (res) {
             console.log(res);
+            // 判断
             if (res.status !== 0) {
-                layui.layer.msg(res.message);
+                return layui.layer.msg(res.message);
             } else {
                 layui.layer.msg(res.message, function () {
+                    // 删除localStroage中的token
                     localStorage.removeItem('token');
+                    // 跳转到login.html页面
                     window.parent.location.href = '../login.html'
                 })
+
+                /* // 这几个同时进行
+                // 提示身份过期  
+                layui.layer.msg(res.message);
+                // 删除localStroage中的token
+                localStorage.removeItem('token');
+                // 跳转到login.html页面
+                window.parent.location.href = '../login.html' */
             }
         }
     })

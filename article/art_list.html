@@ -10,16 +10,38 @@
     <link rel="stylesheet" href="/assets/css/article/art_list.css">
 </head>
 
-<body>f
+<body>
     <div class="layui-card">
         <!-- 标题区 -->
         <div class="layui-card-header">
             <span>文章列表</span>
-            <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" id="btnShowAdd">筛选</button>
+            <!-- <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" id="btnShowAdd">筛选</button> -->
         </div>
         <!-- 内容区 -->
         <div class="layui-card-body">
-            <!-- 表格 -->
+            <!-- 筛选区 -->
+            <form class="layui-form" id="">
+                <div class="layui-form-item layui-inline">
+                    <!-- 分类下拉框 -->
+                    <select name="selCate">
+                        <option value="">所有分类</option>
+
+                    </select>
+                </div>
+                <!-- 状态下拉框 -->
+                <div class="layui-form-item layui-inline">
+                    <select name="selStatus">
+                        <option value="">所有状态</option>
+                        <option value="已发布">已发布</option>
+                        <option value="草稿">草稿</option>
+                    </select>
+                </div>
+                <!-- 筛选按钮 -->
+                <div class="layui-form-item layui-inline">
+                    <button id="btnSearch" class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
+                </div>
+            </form>
+            <!-- 表格区 -->
             <table class="layui-table">
                 <colgroup>
                     <col width="150">
@@ -42,8 +64,11 @@
                 </tbody>
             </table>
 
+            <!-- 分页区 -->
+            <div id="pageBar"></div>
         </div>
     </div>
+
 
     <!-- 表格数据的模板 -->
     <script type="text/html" id="tpl-row">
@@ -61,8 +86,13 @@
         {{/each}}
     </script>
 
-
-
+    <!-- 分类可选项的模板结构 -->
+    <script type="text/html" id="tpl-select-status">
+        <!-- <option value="">所有分类</option> -->
+        {{each data}}
+    <option value="{{$value.Id}}">{{$value.name}}</option>
+    {{/each}}
+    </script>
 
 
 

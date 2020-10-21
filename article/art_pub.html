@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大事件—文章分类管理</title>
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css">
+    <!-- link标签由浏览器异步加载文件 不会阻断浏览器主线程执行 -->
+    <!-- script由浏览器主线程自己加载 会阻断后年代码的解析和执行 -->
+    <!-- 裁剪组件样式 -->
+    <link rel="stylesheet" href="/assets/lib/cropper/cropper.css" />
+    <link rel="stylesheet" href="/assets/css/article/art_pub.css">
+</head>
+
+<body>
+    <div class="layui-card">
+        <!-- 标题区 -->
+        <div class="layui-card-header">
+            <span>文章发布</span>
+        </div>
+        <!-- 内容区 -->
+        <div class="layui-card-body">
+            <!-- 发布文章的表单区 ------------------------------------>
+            <form class="layui-form" id="formAdd">
+                <!-- 1.标题文本框区 ------------------>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">文章标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required lay-verify="required" placeholder="请输入标题"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 2.文章分类下拉框 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">文章类别</label>
+                    <div class="layui-input-block">
+                        <select name="cate_id" lay-verify="required">
+                        </select>
+                    </div>
+                </div>
+                <!-- 3.文本编辑器区域 -->
+                <div class="layui-form-item">
+                    <!-- 左侧的 label -->
+                    <label class="layui-form-label">文章内容</label>
+                    <!-- 为富文本编辑器外部的容器设置高度 -->
+                    <div class="layui-input-block" style="height: 400px;">
+                        <!-- 重要：将来这个 textarea 会被初始化为富文本编辑器 -->
+                        <textarea name="content"></textarea>
+                    </div>
+                </div>
+                <!-- 4.图片裁剪区 -->
+                <div class="layui-form-item">
+                    <!-- 左侧的 label -->
+                    <label class="layui-form-label">文章封面</label>
+                    <!-- 选择封面区域 -->
+                    <div class="layui-input-block cover-box">
+                        <!-- 左侧裁剪区域 -->
+                        <div class="cover-left">
+                            <img id="image" src="/assets/images/sample2.jpg" alt="" />
+                        </div>
+                        <!-- 右侧预览区域和选择封面区域 -->
+                        <div class="cover-right">
+                            <!-- 预览的区域 -->
+                            <div class="img-preview"></div>
+                            <!-- 选择封面按钮 -->
+                            <button type="button" id="btnChoose" class="layui-btn layui-btn-danger">选择封面</button>
+                            <!-- 隐藏的文件选择框 -->
+                            <input type="file" id="fileCover" style="display: none;"
+                                accept="image/jpeg,image/png,image/gif">
+                        </div>
+                    </div>
+                </div>
+                <!-- 5.按钮区域 -->
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit id="btnFB">发布</button>
+                        <button class="layui-btn layui-btn-primary" lay-submit id="btnCG">存为草稿</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- 列表表格数据的模板 -->
+    <script type="text/html" id="tpl-row">
+        {{each data}} 
+        <tr>
+            <td>{{$value.title}}</td>
+            <td>{{$value.cate_name}}</td>
+            <td>{{$value.pub_date | dataFormat}}</td>
+            <td>{{$value.state}}</td>
+            <td>
+            <button data-id="{{$value.Id}}" type="button" class="layui-btn layui-btn-xs btn-edit">编辑</button>
+            <button data-id="{{$value.Id}}" type="button" class="layui-btn layui-btn-xs layui-btn-danger btn-del">删除</button>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+
+    <!-- 分类的模板结构 -->
+    <script type="text/html" id="tpl-cate">
+        <option value="">请选择文章类别</option>
+        {{each}}
+            <option value="{{$value.Id}}">{{$value.name}}</option>
+        {{/each}}
+    </script>
+
+
+
+
+    <script src="../assets/lib/layui/layui.all.js"></script>
+    <script src="../assets/lib/jquery.js"></script>
+    <script src="../assets/js/baseAPI.js"></script>
+
+
+
+
+    <!-- 模板引擎js文件 -->
+    <script src="../assets/lib/template-web.js"></script>
+    <!-- 富文本 -->
+    <script src="/assets/lib/tinymce/tinymce.min.js"></script>
+    <script src="/assets/lib/tinymce/tinymce_setup.js"></script>
+    <!-- 导入Cropper相关文件 即裁剪组件js -->
+    <script src="../assets/lib/cropper/Cropper.js"></script>
+    <script src="../assets/lib/cropper/jquery-cropper.js"></script>
+    <!-- 当前页面js -->
+    <script src="../assets/js/article/art_pub.js"></script>
+</body>
+
+</html>
