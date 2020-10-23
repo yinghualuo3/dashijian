@@ -122,7 +122,7 @@ function renderPageBar(total) {
 $('tbody').on('click', '.btn-del', function () {
     // 5.1从被点击按钮上获取当前数据的id
     var id = this.dataset.id;
-    console.log(this);
+    // console.log(this);
     // 删除数据之前 获取当前删除按钮的个数
     var restRowNum = $('.layui-table tbody tr btn-del').length;
     // 5.2询问用户是否要删除数据
