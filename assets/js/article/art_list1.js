@@ -8,8 +8,7 @@ $(function () {
     // 3.为筛选区表单绑定提交事件(写在入口函数外面)
     // 4.定义渲染分页的方法
     renderPageBar();
-
-
+    // 5.删除列表数据
 })
 
 // 0.全局变量 默认查询参数对象
@@ -19,6 +18,7 @@ let queryData = {
     cate_id: '',  // 文章分类id
     state: ''
 };
+
 
 // 1.请求文章列表
 function getArtList() {
@@ -34,6 +34,7 @@ function getArtList() {
             // 调用模板引擎
             var strHtml = template('tpl-row', res);
             $('.layui-table tbody').html(strHtml);
+
             // 调用渲染分页的方法
             renderPageBar(res.total); // res.total总数据条数
         }
@@ -55,8 +56,9 @@ template.defaults.imports.dataFormat = function (date) {
     return y + '-' + m + '-' + d + ' ' + hh + ':' + mm + ':' + ss
 }
 function padZero(time) {
-    return time > 9 ? n : '0' + n;
+    return time > 9 ? time : '0' + time;
 }
+
 
 // 2.初始化文章分类的方法
 function getCateData() {
@@ -77,6 +79,7 @@ function getCateData() {
     })
 }
 
+
 // 3.为筛选区表单绑定提交事件
 $('#formSearch').on('submit', function (e) {
     // 3.1阻止表单默认提交行为
@@ -88,6 +91,7 @@ $('#formSearch').on('submit', function (e) {
     // 3.3根据最新筛选条件重新渲染表格数据
     getArtList();
 })
+
 
 // 4.定义渲染分页的方法
 function renderPageBar(total) {
@@ -113,23 +117,19 @@ function renderPageBar(total) {
     })
 }
 
-$('tbody').on('click', '.btn-del', function () {
-    doDel();
-})
-
 
 // 5.删除列表数据
-function doDel() {
+$('tbody').on('click', '.btn-del', function () {
     // 5.1从被点击按钮上获取当前数据的id
-    var dId = this.dataset.id;
-    console.log(dId);
+    var id = this.dataset.id;
+    console.log(this);
     // 删除数据之前 获取当前删除按钮的个数
     var restRowNum = $('.layui-table tbody tr btn-del').length;
     // 5.2询问用户是否要删除数据
     layui.layer.confirm('您确认要删除这条数据吗', { icon: 3, title: '提示' }, function (index) {
         $.ajax({
             method: 'GET',
-            url: '/my/article/delete/' + dId,
+            url: '/my/article/delete/' + id,
             success(res) {
                 layui.layer.msg(res.message);
                 if (res.status == 0) {
@@ -145,6 +145,9 @@ function doDel() {
         })
         layer.close(index);
     })
-}
+});
+
+
+
 
 

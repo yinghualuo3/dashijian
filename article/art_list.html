@@ -77,7 +77,7 @@
             <td>{{$value.title}}</td>
             <td>{{$value.cate_name}}</td>
             <!-- | dataFormat -->
-            <td>{{$value.pub_date}}</td>  
+            <td>{{$value.pub_date | dataFormat}}</td>  
             <td>{{$value.state}}</td>
             <td>
             <button data-id="{{$value.Id}}" type="button" class="layui-btn layui-btn-xs btn-edit">编辑</button>

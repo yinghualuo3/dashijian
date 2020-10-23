@@ -49,7 +49,7 @@ $(function () {
                 layui.layer.msg(res.message)
             } else {
                 layui.layer.msg(res.message, function () {
-                    // ---------------------不懂---------post ajax-----------------
+                    // ---------------------
                     $('#link_login').click();
                     // 清空表单内容
                     $('#formReg')[0].reset();
