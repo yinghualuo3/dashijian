@@ -28,6 +28,7 @@ function getUserInfo() {
             console.log(res);
             if (res.status == 0) {
                 // console.log(res);
+                // 渲染
                 layui.form.val('fUserInfo', res.data);
             }
         }
